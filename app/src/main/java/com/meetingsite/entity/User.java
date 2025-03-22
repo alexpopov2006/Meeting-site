@@ -1,13 +1,13 @@
 package com.meetingsite.entity;
 public class User {
-    String email;
-    String passwordHash;
-    String firstName;
-    String registrationDate; // Упрощаем LocalDateTime до String
-    boolean isActive;
-    int likesReceived;
-    int matches;
-    Profile profile;
+    private String email;
+    private String passwordHash;
+    private String firstName;
+    private String registrationDate; // Упрощаем LocalDateTime до String
+    private Boolean isActive;
+    private int likesReceived;
+    private int matches;
+    private Profile profile;
 
     public User(String email, String passwordHash, String firstName, String registrationDate) {
         this.email = email;

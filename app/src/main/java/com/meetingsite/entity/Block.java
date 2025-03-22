@@ -1,10 +1,13 @@
 package com.meetingsite.entity;
-public class Block {
-    User blocker;
-    User blockedUser;
-    String blockDate; // Упрощаем LocalDateTime до String
 
-    public Block(User blocker, User blockedUser, String blockDate) {
+import java.time.LocalDateTime;
+
+public class Block {
+    private User blocker;
+    private User blockedUser;
+    private LocalDateTime blockDate;
+
+    public Block(User blocker, User blockedUser, LocalDateTime blockDate) {
         this.blocker = blocker;
         this.blockedUser = blockedUser;
         this.blockDate = blockDate;
