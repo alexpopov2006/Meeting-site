@@ -18,6 +18,7 @@ public class Photo {
         this.isMain = (isMain != null) ? isMain : false;
     }
 
+
     // Getters
     public UUID getId() {
         return id;

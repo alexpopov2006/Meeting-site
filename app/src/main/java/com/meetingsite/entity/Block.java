@@ -9,6 +9,9 @@ public class Block {
     private User blockedUser;
     private LocalDateTime blockDate;
 
+    public Block() {
+    }
+
     public Block(UUID id, User blocker, User blockedUser, LocalDateTime blockDate) {
         this.id = id;
         this.blocker = blocker;

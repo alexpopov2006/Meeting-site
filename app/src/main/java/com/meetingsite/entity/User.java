@@ -1,4 +1,5 @@
 package com.meetingsite.entity;
+
 public class User {
     private String email;
     private String passwordHash;
@@ -9,6 +10,9 @@ public class User {
     private int matches;
     private Profile profile;
 
+    public User() {
+    }
+
     public User(String email, String passwordHash, String firstName, String registrationDate) {
         this.email = email;
         this.passwordHash = passwordHash;
@@ -18,4 +22,5 @@ public class User {
         this.likesReceived = 0; // По умолчанию 0
         this.matches = 0; // По умолчанию 0
     }
+
 }
