@@ -15,6 +15,8 @@ public class Like {
         this.likedUser = likedUser;
         this.likeDate = likeDate;
     }
+    public Like() {
+    }
 
     // Getters
     public UUID getId() {

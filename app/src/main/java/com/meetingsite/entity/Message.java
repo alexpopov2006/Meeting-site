@@ -10,6 +10,9 @@ public class Message {
     private String content;
     private LocalDateTime sentDate;
 
+    public Message() {
+    }
+
     public Message(UUID id, User sender, User receiver, String content, LocalDateTime sentDate) {
         this.id = id;
         this.sender = sender;
@@ -17,6 +20,7 @@ public class Message {
         this.content = content;
         this.sentDate = sentDate;
     }
+
 
     // Getters
     public UUID getId() {

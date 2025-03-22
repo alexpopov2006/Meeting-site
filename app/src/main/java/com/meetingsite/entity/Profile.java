@@ -1,5 +1,7 @@
 package com.meetingsite.entity;
 
+import com.meetingsite.enums.Gender;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -10,11 +12,6 @@ public class Profile {
     private LocalDate birthDate;
     private String aboutMe;
     private Photo[] photos;
-
-    public enum Gender {
-        MALE,
-        FEMALE
-    }
 
     public Profile() {
         this.photos = new Photo[0];
