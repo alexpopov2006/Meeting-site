@@ -1,7 +1,13 @@
 package com.meetingsite.entity;
 public class Profile {
-    User user;
-    String gender;
+    private User user;
+    public enum Gender{
+        MALE,
+        FEMALE
+    }
+
+
+
     String birthDate; // Упрощаем LocalDate до String
     String aboutMe;
     Photo[] photos; // Упрощаем List<Photo> до массива

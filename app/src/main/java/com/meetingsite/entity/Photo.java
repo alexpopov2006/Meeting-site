@@ -1,8 +1,8 @@
 package com.meetingsite.entity;
 public class Photo {
-    Profile profile;
+    private Profile profile;
     String url;
-    boolean isMain;
+    Boolean isMain;
 
     public Photo(Profile profile, String url) {
         this.profile = profile;
