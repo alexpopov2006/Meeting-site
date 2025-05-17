@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: Meeting site
+    version: 1.0.0
+  datasource:
+    url: jdbc:postgresql://localhost:5433/meetingsite_db
+    username: admin
+    password: admin123
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    default-schema: public
+    locations: classpath:db/migration
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui

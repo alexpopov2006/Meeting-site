@@ -1,17 +1,11 @@
 package com.meetingsite;
 
-import com.meetingsite.entity.User;
-import com.meetingsite.entity.Profile;
-import com.meetingsite.entity.Block;
-import com.meetingsite.entity.Like;
-import com.meetingsite.entity.Message;
-import com.meetingsite.entity.Photo;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-    }
-
-    public int f() {
-        return 110;
+        SpringApplication.run(Main.class, args);
     }
 }

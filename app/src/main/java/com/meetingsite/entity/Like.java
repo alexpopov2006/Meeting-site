@@ -1,9 +1,17 @@
 package com.meetingsite.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
-
+@Getter
+@Setter
+@NoArgsConstructor
 public class Like {
+    @Id
     private UUID id;
     private User liker;
     private User likedUser;
@@ -13,42 +21,6 @@ public class Like {
         this.id = id;
         this.liker = liker;
         this.likedUser = likedUser;
-        this.likeDate = likeDate;
-    }
-    public Like() {
-    }
-
-    // Getters
-    public UUID getId() {
-        return id;
-    }
-
-    public User getLiker() {
-        return liker;
-    }
-
-    public User getLikedUser() {
-        return likedUser;
-    }
-
-    public LocalDateTime getLikeDate() {
-        return likeDate;
-    }
-
-    // Setters
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setLiker(User liker) {
-        this.liker = liker;
-    }
-
-    public void setLikedUser(User likedUser) {
-        this.likedUser = likedUser;
-    }
-
-    public void setLikeDate(LocalDateTime likeDate) {
         this.likeDate = likeDate;
     }
 }
