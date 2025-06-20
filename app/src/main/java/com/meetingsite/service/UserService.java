@@ -1,5 +1,7 @@
 package com.meetingsite.service;
 
+import com.meetingsite.dto.request.UserRequest;
+import com.meetingsite.dto.response.UserResponse;
 import com.meetingsite.entity.Address;
 import com.meetingsite.entity.User;
 import com.meetingsite.mapper.UserMapper;
@@ -22,41 +24,48 @@ public class UserService {
     private final AddressRepository addressRepository;
     private final UserMapper userMapper;
 
+    public UserMapper getMapper() {
+        return userMapper;
+    }
+
     @Transactional
-    public User createUser(User request) {
+    public UserResponse createUser(UserRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new IllegalArgumentException("Email already exists");
         }
         Address savedAddress = null;
-        // Сохраняем адрес, если он указан
         if (request.address() != null) {
             var address = userMapper.toAddress(request);
             savedAddress = addressRepository.save(address);
         }
-        var user = userMapper.toEntity(request);
+        var user = userMapper.toEntity(request); // Преобразуем UserRequest в User
         user.setAddressId(savedAddress == null ? null : savedAddress.getId());
-        return userMapper.toResponse(userRepository.save(request), savedAddress); //сделать в маппере метод этот
+        User savedUser = userRepository.save(user); // Сохраняем User
+        return userMapper.toResponse(savedUser, savedAddress); // Возвращаем UserResponse
     }
+
     public Optional<User> getUserById(UUID id) {
         return userRepository.findById(id);
     }
+
     public Page<User> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
     @Transactional
-    public User updateUser(UUID id, User userDetails) {
+    public UserResponse updateUser(UUID id, UserRequest userRequest) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isEmpty()) {
             throw new IllegalArgumentException("User not found");
         }
-        userDetails.setId(id);
-        // Обновляем адрес, если он указан
-        if (userDetails.getAddress() != null) {
-            Address savedAddress = addressRepository.save(userDetails.getAddress());
-            userDetails.setAddress(savedAddress);
+        var user = userMapper.toEntity(userRequest); // Преобразуем UserRequest в User
+        user.setId(id);
+        if (user.getAddress() != null) {
+            Address savedAddress = addressRepository.save(user.getAddress());
+            user.setAddress(savedAddress);
         }
-        return userRepository.save(userDetails);
+        User savedUser = userRepository.save(user);
+        return userMapper.toResponse(savedUser, savedUser.getAddress());
     }
 
     @Transactional

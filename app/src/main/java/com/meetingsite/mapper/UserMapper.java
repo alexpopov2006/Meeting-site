@@ -1,27 +1,65 @@
 package com.meetingsite.mapper;
 
 import com.meetingsite.dto.request.UserRequest;
+import com.meetingsite.dto.response.UserResponse;
 import com.meetingsite.entity.Address;
 import com.meetingsite.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
-import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
-import static org.mapstruct.ReportingPolicy.ERROR;
+@Component
+public class UserMapper {
 
-@Mapper(unmappedTargetPolicy = ERROR, componentModel = SPRING)
-public interface UserMapper {
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "passwordhash", ignore = true)  // или замаппить, если поле есть в UserRequest
-    @Mapping(target = "firstname", ignore = true)     // или замаппить, если поле есть в UserRequest
-    @Mapping(target = "isactive", ignore = true)      // или замаппить, если поле есть в UserRequest
-    @Mapping(target = "likesreceived", ignore = true) // или замаппить, если поле есть в UserRequest
-    @Mapping(target = "addressId", ignore = true)      // или замаппить, если поле есть в UserRequest
-    User toEntity(UserRequest request);
+    public User toEntity(UserRequest request) {
+        User user = new User(
+                request.email(),
+                request.passwordHash(),
+                request.surName(),
+                request.dadName(),
+                request.firstName()
+        );
+        user.setIsactive(request.isActive());
+        user.setLikesreceived(request.likesReceived());
+        user.setMatches(request.matches());
+        if (request.address() != null) {
+            user.setAddress(new Address(
+                    request.address().country(),
+                    request.address().region(),
+                    request.address().city()
+            ));
+        }
+        return user;
+    }
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "country", source = "address.country")
-    @Mapping(target = "region", ignore = true)        // или замаппить, если поле есть в UserRequest
-    @Mapping(target = "city", ignore = true)         // или замаппить, если поле есть в UserRequest
-    Address toAddress(UserRequest request);
+    public Address toAddress(UserRequest request) {
+        if (request.address() == null) {
+            return null;
+        }
+        return new Address(
+                request.address().country(),
+                request.address().region(),
+                request.address().city()
+        );
+    }
+
+    public UserResponse toResponse(User user, Address address) {
+        UserResponse.AddressResponse addressResponse = null;
+        if (address != null) {
+            addressResponse = new UserResponse.AddressResponse(
+                    address.getCountry(),
+                    address.getRegion(),
+                    address.getCity()
+            );
+        }
+        return new UserResponse(
+                user.getEmail(),
+                user.getId(),
+                user.getFirstname(),
+                user.getSurName(),
+                user.getDadName(),
+                user.getIsactive(),
+                user.getLikesreceived(),
+                user.getMatches(),
+                addressResponse
+        );
+    }
 }

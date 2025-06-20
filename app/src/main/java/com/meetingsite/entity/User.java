@@ -29,10 +29,10 @@ public class User {
     private int likesreceived;
     private int matches;
     private UUID addressId; // Связь с Address
-
-    public User(String email, String passwordHash, String surName, String dadName, String firstName) {
+    private Address Address;
+    public User(String email, String passwordhash, String surName, String dadName, String firstName) {
         this.email = email;
-        this.passwordhash = passwordHash;
+        this.passwordhash = passwordhash;
         this.firstname = firstName;
         this.dadName = dadName;
         this.surName = surName;

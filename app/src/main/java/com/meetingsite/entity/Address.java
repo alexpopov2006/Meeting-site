@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+
 import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class Address {
     @Id
     private UUID id;
+
     private String country;
     private String region;
     private String city;
