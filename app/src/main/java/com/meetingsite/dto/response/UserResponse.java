@@ -7,9 +7,17 @@ public record UserResponse(
         String email,
         UUID id,
         String firstName,
-        LocalDateTime registrationDate,
+        String surName,
+        String dadName,
+        //LocalDateTime registrationDate,
         Boolean isActive,
         Integer likesReceived,
-        Integer matches
+        Integer matches,
+        AddressResponse address // Добавляем адрес
 ) {
+    public record AddressResponse(
+            String country,
+            String region,
+            String city
+    ) {}
 }

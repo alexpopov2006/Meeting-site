@@ -10,13 +10,13 @@ import java.util.function.Function;
 public record PageDto<T>(
         @Schema(description = "Контент")
         List<T> content,
-        @Schema(description = "Номер страницы", examples = "0")
+        @Schema(description = "Номер страницы")
         Integer pageNumber,
-        @Schema(description = "Количество элементов на странице", examples = "10")
+        @Schema(description = "Количество элементов на странице")
         Integer elementsOnPage,
-        @Schema(description = "Всего страниц", examples = "100")
+        @Schema(description = "Всего страниц")
         Integer totalPages,
-        @Schema(description = "Всего элементов", examples = "1000")
+        @Schema(description = "Всего элементов")
         Long totalElements
 ) {
     public <E> PageDto(Page<E> page, Function<E, T> mappingFunction) {

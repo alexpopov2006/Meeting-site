@@ -29,7 +29,6 @@ dependencies {
     implementation("org.mapstruct:mapstruct:1.6.0")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.0")
     testAnnotationProcessor("org.mapstruct:mapstruct-processor:1.6.0")
-
     // Добавляем Spring Security
     //implementation("org.springframework.boot:spring-boot-starter-security")
     // Добавляем JWT

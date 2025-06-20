@@ -15,14 +15,19 @@ public class Profile {
     @Id
     private UUID id;
     private User user;
+    private Address city;
+    private Address region;
+    private Address country;
     private Gender gender;
     private LocalDate birthDate;
     private String aboutMe;
     private Photo[] photos;
 
-
-    public Profile(UUID id, User user, Gender gender, LocalDate birthDate, String aboutMe, Photo[] photos) {
+    public Profile(UUID id, User user, Address country, Address city, Address region, Gender gender, LocalDate birthDate, String aboutMe, Photo[] photos) {
         this.id = id;
+        this.region = region;
+        this.city = city;
+        this.country = country;
         this.user = user;
         this.gender = gender;
         this.birthDate = birthDate;

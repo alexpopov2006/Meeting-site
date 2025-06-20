@@ -8,9 +8,17 @@ public record UserRequest(
         UUID id,
         String passwordHash,
         String firstName,
-        LocalDateTime registrationDate,
+        String surName,
+        String dadName,
+        //LocalDateTime registrationDate,
         Boolean isActive,
         Integer likesReceived,
-        Integer matches
+        Integer matches,
+        AddressRequest address // Добавляем адрес
 ) {
+    public record AddressRequest(
+            String country,
+            String region,
+            String city
+    ) {}
 }
