@@ -24,8 +24,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll() // Разрешаем POST запросы к /api/users (для создания)
                         .requestMatchers(HttpMethod.GET, "/api/users/{id}").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/messages").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/messages/{userId}").permitAll()// Разрешаем GET запросы к /api/users/{id} (для получения по ID)
+                        .requestMatchers(HttpMethod.POST, "/api/messages/send").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/messages/{id}").permitAll()// Разрешаем GET запросы к /api/users/{id} (для получения по ID)
                         .anyRequest().authenticated() // Все остальные требуют аутентификации
                 )
                 .sessionManagement(session -> session

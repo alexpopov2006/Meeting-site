@@ -10,14 +10,16 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class WebSocketController {
+
     private static final Logger logger = LoggerFactory.getLogger(WebSocketController.class);
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    @MessageMapping("/chat.send")
-    public void sendMessage(Message message) {
+    @MessageMapping("/sendMessage")
+    public void handleMessage(Message message) {
         logger.info("Received WebSocket message from {} to {}", message.getSenderId(), message.getReceiverId());
         messagingTemplate.convertAndSend("/topic/messages/" + message.getReceiverId(), message);
     }
+
 }

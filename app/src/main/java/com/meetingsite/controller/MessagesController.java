@@ -13,10 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/messages")
 @ControllerAdvice
-public class MessageController {
+public class MessagesController {
 
     @Autowired
     private MessageService messageService;
@@ -32,6 +33,7 @@ public class MessageController {
         Message savedMessage = messageService.saveMessage(message);
         return ResponseEntity.ok(savedMessage);
     }
+
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleJsonParseError(HttpMessageNotReadableException ex) {
