@@ -16,6 +16,8 @@ public class Message {
     private User sender;
     private User receiver;
     private String content;
+    private UUID senderId;
+    private UUID receiverId;
     private LocalDateTime sentDate;
 
     public Message(UUID id, User sender, User receiver, String content, LocalDateTime sentDate) {
