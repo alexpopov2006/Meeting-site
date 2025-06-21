@@ -2,6 +2,7 @@ package com.meetingsite.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,36 +19,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable() // Отключаем CSRF для простоты (для RESTful API)
-                .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // Разрешаем доступ к auth и Swagger
-                .anyRequest().authenticated() // Все остальные требуют аутентификации
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Отключаем сессии
-
-        // Если вы используете Basic Authentication с пользователями из application.yml,
-        // Spring Boot автоматически настроит UserDetailsService на основе этих свойств.
-        // Если вы будете использовать свою реализацию UserDetailsService для базы данных,
-        // вам нужно будет добавить ее сюда или настроить AuthenticationProvider.
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll() // Разрешаем POST запросы к /api/users (для создания)
+                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").permitAll() // Разрешаем GET запросы к /api/users/{id} (для получения по ID)
+                        .anyRequest().authenticated() // Все остальные требуют аутентификации
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
 
         return http.build();
     }
 
-    // Этот бин UserDetailsService нужен, если вы не используете свою
-    // реализацию UserDetailsService и хотите определить пользователей
-    // программно. Если у вас есть пользователи в application.yml,
-    // Spring Boot автоконфигурирует UserDetailsService.
-    // Если вы будете использовать JWT с UserDetailsService на основе базы данных,
-    // этот бин вам не понадобится, и его нужно будет удалить.
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     UserDetails user = User.withDefaultPasswordEncoder() // В продакшене используйте PasswordEncoder
-    //             .username("admin")
-    //             .password("admin")
-    //             .roles("ADMIN") // Добавляем роль ADMIN
-    //             .build();
-    //     return new InMemoryUserDetailsManager(user);
-    // }
+     @Bean
+     public UserDetailsService userDetailsService() {
+         UserDetails user = User.withDefaultPasswordEncoder()
+                 .username("admin")
+                 .password("admin")
+                 .roles("ADMIN")
+                 .build();
+         return new InMemoryUserDetailsManager(user);
+     }
 }

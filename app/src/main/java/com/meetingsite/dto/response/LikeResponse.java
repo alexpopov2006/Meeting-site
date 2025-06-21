@@ -1,13 +1,43 @@
 package com.meetingsite.dto.response;
 
-import com.meetingsite.entity.User;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record LikeResponse(
-        UUID id,
-        User liker,
-        User likedUser,
-        LocalDateTime likeDate
-) {
+public class LikeResponse {
+
+    private UUID id;
+    private UUID likerId;
+    private UUID likedId;
+
+    public LikeResponse() {
+    }
+
+    public LikeResponse(UUID id, UUID likerId, UUID likedId) {
+        this.id = id;
+        this.likerId = likerId;
+        this.likedId = likedId;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getLikerId() {
+        return likerId;
+    }
+
+    public void setLikerId(UUID likerId) {
+        this.likerId = likerId;
+    }
+
+    public UUID getLikedId() {
+        return likedId;
+    }
+
+    public void setLikedId(UUID likedId) {
+        this.likedId = likedId;
+    }
 }
