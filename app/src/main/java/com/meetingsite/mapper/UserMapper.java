@@ -62,4 +62,16 @@ public class UserMapper {
                 addressResponse
         );
     }
+
+    // Новый метод для обновления сущности User из UserRequest
+    public void updateEntityFromRequest(UserRequest request, User userToUpdate) {
+        userToUpdate.setEmail(request.email());
+        userToUpdate.setSurName(request.surName());
+        userToUpdate.setDadName(request.dadName());
+        userToUpdate.setFirstname(request.firstName());
+        userToUpdate.setIsactive(request.isActive());
+        userToUpdate.setLikesreceived(request.likesReceived());
+        userToUpdate.setMatches(request.matches());
+        // Игнорируем поле адреса здесь, так как оно обрабатывается в сервисе
+    }
 }

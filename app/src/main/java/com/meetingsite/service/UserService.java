@@ -3,6 +3,8 @@ package com.meetingsite.service;
 import com.meetingsite.dto.request.UserRequest;
 import com.meetingsite.dto.response.UserResponse;
 import com.meetingsite.entity.Address;
+import com.meetingsite.exception.EmailAlreadyExistsException;
+import com.meetingsite.exception.UserNotFoundException;
 import com.meetingsite.entity.User;
 import com.meetingsite.mapper.UserMapper;
 import com.meetingsite.repository.AddressRepository;
@@ -31,7 +33,7 @@ public class UserService {
     @Transactional
     public UserResponse createUser(UserRequest request) {
         if (userRepository.existsByEmail(request.email())) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new EmailAlreadyExistsException("Email already exists");
         }
         Address savedAddress = null;
         if (request.address() != null) {
@@ -45,14 +47,16 @@ public class UserService {
     }
 
     public Optional<User> getUserById(UUID id) {
-        return userRepository.findById(id);
+        return Optional.ofNullable(userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found")));
     }
 
     public Page<User> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
-    @Transactional
+    //    @Transactional // This method is not used in the current code and needs to be refactored based on previous discussion
+//    public UserResponse updateUser(UUID id, UserRequest userRequest) {
     public UserResponse updateUser(UUID id, UserRequest userRequest) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isEmpty()) {
@@ -71,7 +75,7 @@ public class UserService {
     @Transactional
     public void deleteUser(UUID id) {
         if (!userRepository.existsById(id)) {
-            throw new IllegalArgumentException("User not found");
+            throw new UserNotFoundException("User with id " + id + " not found");
         }
         userRepository.deleteById(id);
     }

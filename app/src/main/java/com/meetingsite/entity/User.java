@@ -19,17 +19,27 @@ import java.util.UUID;
 public class User {
     @Id
     private UUID id;
+    @Column("email")
     private String email;
+    @Column("password_hash")
     private String passwordhash;
+    @Column("first_name")
     private String firstname;
+    @Column("sur_name")
     private String surName;
+    @Column("dad_name")
     private String dadName;
+    @Column("isactive")
     //private LocalDateTime registrationDate;
     private Boolean isactive;
+    @Column("likesreceived")
     private int likesreceived;
+    @Column("matches")
     private int matches;
+    @Column("address_id")
     private UUID addressId; // Связь с Address
     private Address Address;
+
     public User(String email, String passwordhash, String surName, String dadName, String firstName) {
         this.email = email;
         this.passwordhash = passwordhash;
@@ -41,4 +51,5 @@ public class User {
         this.likesreceived = 0;
         this.matches = 0;
     }
+
 }

@@ -17,6 +17,11 @@ repositories {
 }
 
 dependencies {
+    implementation("io.springfox:springfox-swagger-ui:2.6.1")
+    implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     implementation("org.springframework.boot:spring-boot-starter-web")
